@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, Button, Image, Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import api from '../../services/api';
 
@@ -15,6 +17,14 @@ interface IUsuario {
 }
 
 const Usuarios: React.FC = () => {
+
+  const notifySuccesss = () => toast.success("Operação Realizada com Sucesso!", {
+    position: toast.POSITION.BOTTOM_RIGHT
+  });
+  const notifyError = () => toast.error("Ocorreu um problema na requisição, contate o Administrador!", {
+    position: toast.POSITION.BOTTOM_RIGHT
+  });
+  
 
   const [usuarios, setUsuarios] = useState<IUsuario[]>([]);
   const history = useHistory();
@@ -42,7 +52,12 @@ const Usuarios: React.FC = () => {
   }
 
   async function deleteUsuario(id: number){
-    await api.delete(`/usuarios/${id}`);
+    const response = await api.delete(`/usuarios/${id}`);
+    if(response.status == 204){
+       notifySuccesss();
+    }else{
+      notifyError();
+    }
     loadUsuarios();
   }
 
@@ -62,7 +77,7 @@ const Usuarios: React.FC = () => {
       </Breadcrumb>
       <br/>
 
-
+      <ToastContainer />
 
       <Table striped bordered hover className="text-center">
         <thead>

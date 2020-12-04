@@ -1,5 +1,7 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import { Breadcrumb, Button, Form, FormFile } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import api from '../../services/api';
 import imageDefault from './images/avatar.png';
@@ -14,6 +16,14 @@ interface IUsuario {
   }
 
 const UsuarioForm: React.FC = () => {
+
+    const notifySuccesss = () => toast.success("Operação Realizada com Sucesso!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
+      const notifyError = () => toast.error("Ocorreu um problema na requisição, contate o Administrador!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
+      
 
     const history = useHistory();
     const { id } = useParams<{ id: string }>();
@@ -41,8 +51,18 @@ const UsuarioForm: React.FC = () => {
         e.preventDefault();
         if(id !== undefined){
             const response = await api.put(`/usuarios/${id}`, model);
+            if(response.status == 204){
+                notifySuccesss();
+            }else{
+                notifyError();
+            }
         }else{
             const response = await api.post('/usuarios', model);
+            if(response.status == 200){
+                notifySuccesss();
+            }else{
+                notifyError();
+            }
         }
         voltar();
     }
