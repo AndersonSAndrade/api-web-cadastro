@@ -25,7 +25,9 @@ const UsuarioForm: React.FC = () => {
       const notifyError = () => toast.error("Ocorreu um problema na requisição, contate o Administrador!", {
         position: toast.POSITION.BOTTOM_RIGHT
       });
-      
+      const notifyError500 = () => toast.error("A imagem que está tentando enviar e muito grande o ideal é 2mb!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
 
     const history = useHistory();
     const { id } = useParams<{ id: string }>();
@@ -62,8 +64,10 @@ const UsuarioForm: React.FC = () => {
             const response = await api.post('/usuarios', model);
             if(response.status == 200){
                 notifySuccesss();
+            }else if(response.status == 500){
+                notifyError500();
             }else{
-                notifyError();
+               notifyError();
             }
         }
         voltar();
@@ -130,6 +134,7 @@ const UsuarioForm: React.FC = () => {
     <Form.Group>
         <FormFile.Label>Gostaria de Adicionar um Avatar?</FormFile.Label>
         <Form.File id="avatar" className="img"  onChange={(e) => {uploadImage(e)}}/>
+        <Form.Text className="text-muted">O tamanho máximo permitido da imagem e de 50KB.</Form.Text>
     </Form.Group>
       <Form.Group controlId="nome">
           <Form.Label>Nome</Form.Label>
