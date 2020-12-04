@@ -3,8 +3,13 @@
 
 ## Processos
 - [x] Criando projeto Front-End para consumir api de Cadastro de Usuários.
-- [ ] Configurações iniciais do projeto.
-
+- [x] Configurações iniciais do projeto.
+- [x] Criação do theme com react-bootstrap
+- [x] Realizando GET dos usuários em tabela.
+- [x] Criando formulário para o cadastro com POST.
+- [x] Criando upload de imagem e convertendo em base64 para enviar para o banco.
+- [x] Atualizando dados com PUT
+- [x] Deletando usuário com DELETE.
 
 ## Recomendações
 #### Projeto

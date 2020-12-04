@@ -2,6 +2,8 @@ import React, { ChangeEvent, useState, useEffect } from 'react';
 import { Breadcrumb, Button, Form, FormFile } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MaskedFormControl from 'react-bootstrap-maskedinput'
+
 
 import api from '../../services/api';
 import imageDefault from './images/avatar.png';
@@ -135,7 +137,7 @@ const UsuarioForm: React.FC = () => {
       </Form.Group>
       <Form.Group controlId="nome">
           <Form.Label>Data de Nascimento</Form.Label>
-          <Form.Control type="text" name="dataNascimento" value={model.dataNascimento} onChange={(e: ChangeEvent<HTMLInputElement>) => updateModel(e)} />
+          <MaskedFormControl mask='11/11/1111' type="text" name="dataNascimento" value={model.dataNascimento} onChange={(e: ChangeEvent<HTMLInputElement>) => updateModel(e)} />
       </Form.Group>
       <Button variant="primary" type="submit">
             Salvar
